@@ -1,0 +1,3 @@
+C:/Users/27487/CLionProjects/Fem1/cmake-build-debug/CMakeFiles/Fem1.dir
+C:/Users/27487/CLionProjects/Fem1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/27487/CLionProjects/Fem1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
