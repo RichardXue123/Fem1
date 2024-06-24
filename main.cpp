@@ -64,6 +64,8 @@ void simulateLongRunningFunction() {
             std::cout.flush(); // progress test
             std::cout << marker[0] << "Output message catch test: " << i << std::endl;
             std::cout.flush(); // output test
+            std::cout << marker[1] << "Warning message catch test: " << i << std::endl;
+            std::cout.flush(); // warning test
             std::cout << marker[2] << "Error message catch test: " << i << std::endl;
             std::cout.flush(); // error test
             sleep(1); // 模拟耗时操作
