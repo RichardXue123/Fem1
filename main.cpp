@@ -13,6 +13,7 @@ int step = 0;
 
 vector<std::string>marker = {
         "Output: ",
+        "Warning: ",
         "Error: ",
         "Progress: "
 };
@@ -42,7 +43,7 @@ void logResult(const std::string& message) {
         logFile << message << std::endl;
         logFile.close();
     } else {
-        std::cout << marker[1]<<"Unable to open log file: " << fileName << std::endl;
+        std::cout << marker[2]<<"Unable to open log file: " << fileName << std::endl;
         //std::cerr << "Unable to open log file: " << fileName << std::endl;
         std::cout.flush();
     }
@@ -59,11 +60,11 @@ void signalHandler(int signal) {
 void simulateLongRunningFunction() {
     try {
         for (int i = 1; i <= 10; ++i) {
-            std::cout << marker[2] << i << std::endl;
+            std::cout << marker[3] << i << std::endl;
             std::cout.flush(); // progress test
             std::cout << marker[0] << "Output message catch test: " << i << std::endl;
             std::cout.flush(); // output test
-            std::cout << marker[1] << "Error message catch test: " << i << std::endl;
+            std::cout << marker[2] << "Error message catch test: " << i << std::endl;
             std::cout.flush(); // error test
             sleep(1); // 模拟耗时操作
             step = i;
@@ -72,7 +73,7 @@ void simulateLongRunningFunction() {
         logResult("Success");
     }
     catch (const std::runtime_error& e) {
-        std::cout << marker[1]<<"Fail: " << e.what() << std::endl;
+        std::cout << marker[2]<<"Fail: " << e.what() << std::endl;
         std::cout.flush();
         logResult(std::string("Fail: ") + e.what()+", Stop at Step "+std::to_string(step)+ ".");
         exit(0);
@@ -83,7 +84,7 @@ void readFile(const std::string& path) {
     std::ifstream inFile(path);
     if (!inFile.is_open()) {
 
-        std::cout <<marker[1]<< "Unable to open file: " << path << std::endl;
+        std::cout <<marker[2]<< "Unable to open file: " << path << std::endl;
         //std::cerr << "Unable to open file: " << path << std::endl;
         logResult("Unable to open file: " + path);
         exit(1);
@@ -108,12 +109,12 @@ int main(int argc, char* argv[]) {
             isAbsolutePath = false;
             hasFilePath = true;
         } else {
-            std::cout <<marker[1]<< "Invalid argument. Use -d for absolute path or -r for relative path." << std::endl;
+            std::cout <<marker[2]<< "Invalid argument. Use -d for absolute path or -r for relative path." << std::endl;
             //std::cerr << "Invalid argument. Use -d for absolute path or -r for relative path." << std::endl;
             return 1;
         }
     } else if (argc != 1) {
-        std::cout <<marker[1]<< "Usage: " << argv[0] << " [-d <absolute_path> | -r <relative_path>]" << std::endl;
+        std::cout <<marker[2]<< "Usage: " << argv[0] << " [-d <absolute_path> | -r <relative_path>]" << std::endl;
         //std::cerr << "Usage: " << argv[0] << " [-d <absolute_path> | -r <relative_path>]" << std::endl;
         return 1;
     }
@@ -128,7 +129,7 @@ int main(int argc, char* argv[]) {
         if (!isAbsolutePath) {
             char currentPath[FILENAME_MAX];
             if (!getcwd(currentPath, sizeof(currentPath))) {
-                std::cout <<marker[1]<< "Error getting current working directory." << std::endl;
+                std::cout <<marker[2]<< "Error getting current working directory." << std::endl;
                 //std::cerr << "Error getting current working directory." << std::endl;
                 return 1;
             }
